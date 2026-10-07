@@ -34,7 +34,6 @@ public class AdminAuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest body, HttpServletRequest req) {
         Admin admin = adminRepository.findByUsername(body.getUsername()).orElse(null);
         System.out.println("Login endpoint called with username: " + body.getUsername());
-        System.out.println("Fetched admin from MongoDB: " + (admin != null ? admin.getUsername() + ", password: " + admin.getPassword() : "null"));
         if (admin == null || !admin.getPassword().equals(body.getPassword())) {
             return ResponseEntity.status(401).body(Map.of("message", "Invalid credentials"));
         }
